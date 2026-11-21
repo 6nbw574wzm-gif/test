@@ -1,0 +1,622 @@
+
+========== MODEL INPUTS ==========
+Name: input_image
+Type: imageType {
+  width: 518
+  height: 518
+  colorSpace: RGB
+}
+
+
+========== MODEL OUTPUTS ==========
+Name: gaussian_attributes
+Type: multiArrayType {
+  shape: 1
+  shape: 20018
+  shape: 14
+  dataType: FLOAT16
+}
+
+
+========================================
+FUNCTION: main
+BLOCK: CoreML7
+TOTAL OPERATIONS: 3108
+========================================
+
+========== LAST 40 OPERATIONS ==========
+
+OP: 3068 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'renderer_gs_net_out_layers_scaling_bias_to_fp16', 'shape': 'unknown'}]
+
+OP: 3069 
+TYPE: linear 
+INPUTS: {'weight': ['renderer_gs_net_out_layers_scaling_weight_to_fp16_quantized'], 'x': ['linear_217_cast_fp16'], 'bias': ['renderer_gs_net_out_layers_scaling_bias_to_fp16']} 
+OUTPUTS: [{'name': 'linear_219_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3070 
+TYPE: exp 
+INPUTS: {'x': ['linear_219_cast_fp16']} 
+OUTPUTS: [{'name': 'v_55_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3071 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'var_3671_promoted_to_fp16', 'shape': 'unknown'}]
+
+OP: 3072 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'var_3668_to_fp16', 'shape': 'unknown'}]
+
+OP: 3073 
+TYPE: clip 
+INPUTS: {'beta': ['var_3668_to_fp16'], 'x': ['v_55_cast_fp16'], 'alpha': ['var_3671_promoted_to_fp16']} 
+OUTPUTS: [{'name': 'clip_0_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3074 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: [{'name': 'renderer_gs_net_out_layers_xyz_weight_to_fp16_quantized', 'shape': 'unknown'}]
+
+OP: 3075 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'renderer_gs_net_out_layers_xyz_bias_to_fp16', 'shape': 'unknown'}]
+
+OP: 3076 
+TYPE: linear 
+INPUTS: {'weight': ['renderer_gs_net_out_layers_xyz_weight_to_fp16_quantized'], 'x': ['linear_217_cast_fp16'], 'bias': ['renderer_gs_net_out_layers_xyz_bias_to_fp16']} 
+OUTPUTS: [{'name': 'linear_220_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3077 
+TYPE: sigmoid 
+INPUTS: {'x': ['linear_220_cast_fp16']} 
+OUTPUTS: [{'name': 'var_3697_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3078 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'var_3698_to_fp16', 'shape': 'unknown'}]
+
+OP: 3079 
+TYPE: sub 
+INPUTS: {'y': ['var_3698_to_fp16'], 'x': ['var_3697_cast_fp16']} 
+OUTPUTS: [{'name': 'var_3699_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3080 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'var_3700_to_fp16', 'shape': 'unknown'}]
+
+OP: 3081 
+TYPE: mul 
+INPUTS: {'y': ['var_3700_to_fp16'], 'x': ['var_3699_cast_fp16']} 
+OUTPUTS: [{'name': 'v_59_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3082 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: [{'name': 'pts_to_fp16_quantized', 'shape': 'unknown'}]
+
+OP: 3083 
+TYPE: add 
+INPUTS: {'y': ['v_59_cast_fp16'], 'x': ['pts_to_fp16_quantized']} 
+OUTPUTS: [{'name': 'xyz_1_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3084 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: [{'name': 'renderer_gs_net_out_layers_opacity_weight_to_fp16_quantized', 'shape': 'unknown'}]
+
+OP: 3085 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'renderer_gs_net_out_layers_opacity_bias_to_fp16', 'shape': 'unknown'}]
+
+OP: 3086 
+TYPE: linear 
+INPUTS: {'weight': ['renderer_gs_net_out_layers_opacity_weight_to_fp16_quantized'], 'x': ['linear_217_cast_fp16'], 'bias': ['renderer_gs_net_out_layers_opacity_bias_to_fp16']} 
+OUTPUTS: [{'name': 'linear_221_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3087 
+TYPE: sigmoid 
+INPUTS: {'x': ['linear_221_cast_fp16']} 
+OUTPUTS: [{'name': 'opacity_1_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3088 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: [{'name': 'renderer_gs_net_out_layers_rotation_weight_to_fp16_quantized', 'shape': 'unknown'}]
+
+OP: 3089 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'renderer_gs_net_out_layers_rotation_bias_to_fp16', 'shape': 'unknown'}]
+
+OP: 3090 
+TYPE: linear 
+INPUTS: {'weight': ['renderer_gs_net_out_layers_rotation_weight_to_fp16_quantized'], 'x': ['linear_217_cast_fp16'], 'bias': ['renderer_gs_net_out_layers_rotation_bias_to_fp16']} 
+OUTPUTS: [{'name': 'linear_222_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3091 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'var_3710', 'shape': 'unknown'}]
+
+OP: 3092 
+TYPE: reduce_l2_norm 
+INPUTS: {'keep_dims': ['var_3665'], 'axes': ['var_3710'], 'x': ['linear_222_cast_fp16']} 
+OUTPUTS: [{'name': 'var_3711_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3093 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'var_3663_to_fp16', 'shape': 'unknown'}]
+
+OP: 3094 
+TYPE: maximum 
+INPUTS: {'y': ['var_3663_to_fp16'], 'x': ['var_3711_cast_fp16']} 
+OUTPUTS: [{'name': 'var_3712_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3095 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'denom_reps_0', 'shape': 'unknown'}]
+
+OP: 3096 
+TYPE: tile 
+INPUTS: {'x': ['var_3712_cast_fp16'], 'reps': ['denom_reps_0']} 
+OUTPUTS: [{'name': 'denom_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3097 
+TYPE: real_div 
+INPUTS: {'y': ['denom_cast_fp16'], 'x': ['linear_222_cast_fp16']} 
+OUTPUTS: [{'name': 'rotation_1_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3098 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'var_3728_begin_0', 'shape': 'unknown'}]
+
+OP: 3099 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'var_3728_end_0', 'shape': 'unknown'}]
+
+OP: 3100 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'var_3728_end_mask_0', 'shape': 'unknown'}]
+
+OP: 3101 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'var_3728_squeeze_mask_0', 'shape': 'unknown'}]
+
+OP: 3102 
+TYPE: slice_by_index 
+INPUTS: {'end_mask': ['var_3728_end_mask_0'], 'squeeze_mask': ['var_3728_squeeze_mask_0'], 'x': ['shs_1_cast_fp16'], 'begin': ['var_3728_begin_0'], 'end': ['var_3728_end_0']} 
+OUTPUTS: [{'name': 'var_3728_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3103 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'var_3735', 'shape': 'unknown'}]
+
+OP: 3104 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'packed_interleave_0', 'shape': 'unknown'}]
+
+OP: 3105 
+TYPE: concat 
+INPUTS: {'axis': ['var_3735'], 'values': ['xyz_1_cast_fp16', 'var_3728_cast_fp16', 'opacity_1_cast_fp16', 'clip_0_cast_fp16', 'rotation_1_cast_fp16'], 'interleave': ['packed_interleave_0']} 
+OUTPUTS: [{'name': 'packed_cast_fp16', 'shape': 'unknown'}]
+
+OP: 3106 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: [{'name': 'var_3739_axes_0', 'shape': 'unknown'}]
+
+OP: 3107 
+TYPE: expand_dims 
+INPUTS: {'axes': ['var_3739_axes_0'], 'x': ['packed_cast_fp16']} 
+OUTPUTS: [{'name': 'gaussian_attributes', 'shape': 'unknown'}]
+
+========== SHS / ROTATION INSPECTION ==========
+
+OP: 3030 
+TYPE: layer_norm 
+INPUTS: {'axes': ['input_765_axes_0'], 'x': ['input_763_cast_fp16'], 'epsilon': ['var_1812_to_fp16']} 
+OUTPUTS: ['input_765_cast_fp16']
+
+OP: 3031 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: ['transformer_layers_9_ff_net_0_proj_weight_to_fp16_quantized']
+
+OP: 3032 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['transformer_layers_9_ff_net_0_proj_bias_to_fp16']
+
+OP: 3033 
+TYPE: linear 
+INPUTS: {'weight': ['transformer_layers_9_ff_net_0_proj_weight_to_fp16_quantized'], 'x': ['input_765_cast_fp16'], 'bias': ['transformer_layers_9_ff_net_0_proj_bias_to_fp16']} 
+OUTPUTS: ['linear_213_cast_fp16']
+
+OP: 3034 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['input_767_mode_0']
+
+OP: 3035 
+TYPE: gelu 
+INPUTS: {'x': ['linear_213_cast_fp16'], 'mode': ['input_767_mode_0']} 
+OUTPUTS: ['input_767_cast_fp16']
+
+OP: 3036 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: ['transformer_layers_9_ff_net_2_weight_to_fp16_quantized']
+
+OP: 3037 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['transformer_layers_9_ff_net_2_bias_to_fp16']
+
+OP: 3038 
+TYPE: linear 
+INPUTS: {'weight': ['transformer_layers_9_ff_net_2_weight_to_fp16_quantized'], 'x': ['input_767_cast_fp16'], 'bias': ['transformer_layers_9_ff_net_2_bias_to_fp16']} 
+OUTPUTS: ['linear_214_cast_fp16']
+
+OP: 3039 
+TYPE: add 
+INPUTS: {'y': ['linear_214_cast_fp16'], 'x': ['input_763_cast_fp16']} 
+OUTPUTS: ['input_771_cast_fp16']
+
+OP: 3040 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['tokens_axes_0']
+
+OP: 3041 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['transformer_norm_weight_to_fp16']
+
+OP: 3042 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['transformer_norm_bias_to_fp16']
+
+OP: 3043 
+TYPE: layer_norm 
+INPUTS: {'gamma': ['transformer_norm_weight_to_fp16'], 'beta': ['transformer_norm_bias_to_fp16'], 'axes': ['tokens_axes_0'], 'x': ['input_771_cast_fp16'], 'epsilon': ['var_1812_to_fp16']} 
+OUTPUTS: ['tokens_cast_fp16']
+
+OP: 3044 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['input_773_begin_0']
+
+OP: 3045 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['input_773_end_0']
+
+OP: 3046 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['input_773_end_mask_0']
+
+OP: 3047 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['input_773_squeeze_mask_0']
+
+OP: 3048 
+TYPE: slice_by_index 
+INPUTS: {'end_mask': ['input_773_end_mask_0'], 'squeeze_mask': ['input_773_squeeze_mask_0'], 'x': ['tokens_cast_fp16'], 'begin': ['input_773_begin_0'], 'end': ['input_773_end_0']} 
+OUTPUTS: ['input_773_cast_fp16']
+
+OP: 3049 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: ['renderer_mlp_net_layers_0_weight_to_fp16_quantized']
+
+OP: 3050 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['renderer_mlp_net_layers_0_bias_to_fp16']
+
+OP: 3051 
+TYPE: linear 
+INPUTS: {'weight': ['renderer_mlp_net_layers_0_weight_to_fp16_quantized'], 'x': ['input_773_cast_fp16'], 'bias': ['renderer_mlp_net_layers_0_bias_to_fp16']} 
+OUTPUTS: ['linear_215_cast_fp16']
+
+OP: 3052 
+TYPE: silu 
+INPUTS: {'x': ['linear_215_cast_fp16']} 
+OUTPUTS: ['input_777_cast_fp16']
+
+OP: 3053 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: ['renderer_mlp_net_layers_2_weight_to_fp16_quantized']
+
+OP: 3054 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['renderer_mlp_net_layers_2_bias_to_fp16']
+
+OP: 3055 
+TYPE: linear 
+INPUTS: {'weight': ['renderer_mlp_net_layers_2_weight_to_fp16_quantized'], 'x': ['input_777_cast_fp16'], 'bias': ['renderer_mlp_net_layers_2_bias_to_fp16']} 
+OUTPUTS: ['linear_216_cast_fp16']
+
+OP: 3056 
+TYPE: silu 
+INPUTS: {'x': ['linear_216_cast_fp16']} 
+OUTPUTS: ['input_781_cast_fp16']
+
+OP: 3057 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: ['renderer_mlp_net_layers_4_weight_to_fp16_quantized']
+
+OP: 3058 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['renderer_mlp_net_layers_4_bias_to_fp16']
+
+OP: 3059 
+TYPE: linear 
+INPUTS: {'weight': ['renderer_mlp_net_layers_4_weight_to_fp16_quantized'], 'x': ['input_781_cast_fp16'], 'bias': ['renderer_mlp_net_layers_4_bias_to_fp16']} 
+OUTPUTS: ['linear_217_cast_fp16']
+
+OP: 3060 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3665']
+
+OP: 3061 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: ['renderer_gs_net_out_layers_shs_weight_to_fp16_quantized']
+
+OP: 3062 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['renderer_gs_net_out_layers_shs_bias_to_fp16']
+
+OP: 3063 
+TYPE: linear 
+INPUTS: {'weight': ['renderer_gs_net_out_layers_shs_weight_to_fp16_quantized'], 'x': ['linear_217_cast_fp16'], 'bias': ['renderer_gs_net_out_layers_shs_bias_to_fp16']} 
+OUTPUTS: ['linear_218_cast_fp16']
+
+OP: 3064 
+TYPE: sigmoid 
+INPUTS: {'x': ['linear_218_cast_fp16']} 
+OUTPUTS: ['v_51_cast_fp16']
+
+OP: 3065 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3687']
+
+OP: 3066 
+TYPE: reshape 
+INPUTS: {'x': ['v_51_cast_fp16'], 'shape': ['var_3687']} 
+OUTPUTS: ['shs_1_cast_fp16']
+
+OP: 3067 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: ['renderer_gs_net_out_layers_scaling_weight_to_fp16_quantized']
+
+OP: 3068 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['renderer_gs_net_out_layers_scaling_bias_to_fp16']
+
+OP: 3069 
+TYPE: linear 
+INPUTS: {'weight': ['renderer_gs_net_out_layers_scaling_weight_to_fp16_quantized'], 'x': ['linear_217_cast_fp16'], 'bias': ['renderer_gs_net_out_layers_scaling_bias_to_fp16']} 
+OUTPUTS: ['linear_219_cast_fp16']
+
+OP: 3070 
+TYPE: exp 
+INPUTS: {'x': ['linear_219_cast_fp16']} 
+OUTPUTS: ['v_55_cast_fp16']
+
+OP: 3071 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3671_promoted_to_fp16']
+
+OP: 3072 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3668_to_fp16']
+
+OP: 3073 
+TYPE: clip 
+INPUTS: {'beta': ['var_3668_to_fp16'], 'x': ['v_55_cast_fp16'], 'alpha': ['var_3671_promoted_to_fp16']} 
+OUTPUTS: ['clip_0_cast_fp16']
+
+OP: 3074 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: ['renderer_gs_net_out_layers_xyz_weight_to_fp16_quantized']
+
+OP: 3075 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['renderer_gs_net_out_layers_xyz_bias_to_fp16']
+
+OP: 3076 
+TYPE: linear 
+INPUTS: {'weight': ['renderer_gs_net_out_layers_xyz_weight_to_fp16_quantized'], 'x': ['linear_217_cast_fp16'], 'bias': ['renderer_gs_net_out_layers_xyz_bias_to_fp16']} 
+OUTPUTS: ['linear_220_cast_fp16']
+
+OP: 3077 
+TYPE: sigmoid 
+INPUTS: {'x': ['linear_220_cast_fp16']} 
+OUTPUTS: ['var_3697_cast_fp16']
+
+OP: 3078 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3698_to_fp16']
+
+OP: 3079 
+TYPE: sub 
+INPUTS: {'y': ['var_3698_to_fp16'], 'x': ['var_3697_cast_fp16']} 
+OUTPUTS: ['var_3699_cast_fp16']
+
+OP: 3080 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3700_to_fp16']
+
+OP: 3081 
+TYPE: mul 
+INPUTS: {'y': ['var_3700_to_fp16'], 'x': ['var_3699_cast_fp16']} 
+OUTPUTS: ['v_59_cast_fp16']
+
+OP: 3082 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: ['pts_to_fp16_quantized']
+
+OP: 3083 
+TYPE: add 
+INPUTS: {'y': ['v_59_cast_fp16'], 'x': ['pts_to_fp16_quantized']} 
+OUTPUTS: ['xyz_1_cast_fp16']
+
+OP: 3084 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: ['renderer_gs_net_out_layers_opacity_weight_to_fp16_quantized']
+
+OP: 3085 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['renderer_gs_net_out_layers_opacity_bias_to_fp16']
+
+OP: 3086 
+TYPE: linear 
+INPUTS: {'weight': ['renderer_gs_net_out_layers_opacity_weight_to_fp16_quantized'], 'x': ['linear_217_cast_fp16'], 'bias': ['renderer_gs_net_out_layers_opacity_bias_to_fp16']} 
+OUTPUTS: ['linear_221_cast_fp16']
+
+OP: 3087 
+TYPE: sigmoid 
+INPUTS: {'x': ['linear_221_cast_fp16']} 
+OUTPUTS: ['opacity_1_cast_fp16']
+
+OP: 3088 
+TYPE: constexpr_affine_dequantize 
+INPUTS: {} 
+OUTPUTS: ['renderer_gs_net_out_layers_rotation_weight_to_fp16_quantized']
+
+OP: 3089 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['renderer_gs_net_out_layers_rotation_bias_to_fp16']
+
+OP: 3090 
+TYPE: linear 
+INPUTS: {'weight': ['renderer_gs_net_out_layers_rotation_weight_to_fp16_quantized'], 'x': ['linear_217_cast_fp16'], 'bias': ['renderer_gs_net_out_layers_rotation_bias_to_fp16']} 
+OUTPUTS: ['linear_222_cast_fp16']
+
+OP: 3091 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3710']
+
+OP: 3092 
+TYPE: reduce_l2_norm 
+INPUTS: {'keep_dims': ['var_3665'], 'axes': ['var_3710'], 'x': ['linear_222_cast_fp16']} 
+OUTPUTS: ['var_3711_cast_fp16']
+
+OP: 3093 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3663_to_fp16']
+
+OP: 3094 
+TYPE: maximum 
+INPUTS: {'y': ['var_3663_to_fp16'], 'x': ['var_3711_cast_fp16']} 
+OUTPUTS: ['var_3712_cast_fp16']
+
+OP: 3095 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['denom_reps_0']
+
+OP: 3096 
+TYPE: tile 
+INPUTS: {'x': ['var_3712_cast_fp16'], 'reps': ['denom_reps_0']} 
+OUTPUTS: ['denom_cast_fp16']
+
+OP: 3097 
+TYPE: real_div 
+INPUTS: {'y': ['denom_cast_fp16'], 'x': ['linear_222_cast_fp16']} 
+OUTPUTS: ['rotation_1_cast_fp16']
+
+OP: 3098 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3728_begin_0']
+
+OP: 3099 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3728_end_0']
+
+OP: 3100 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3728_end_mask_0']
+
+OP: 3101 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3728_squeeze_mask_0']
+
+OP: 3102 
+TYPE: slice_by_index 
+INPUTS: {'end_mask': ['var_3728_end_mask_0'], 'squeeze_mask': ['var_3728_squeeze_mask_0'], 'x': ['shs_1_cast_fp16'], 'begin': ['var_3728_begin_0'], 'end': ['var_3728_end_0']} 
+OUTPUTS: ['var_3728_cast_fp16']
+
+OP: 3103 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3735']
+
+OP: 3104 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['packed_interleave_0']
+
+OP: 3105 
+TYPE: concat 
+INPUTS: {'axis': ['var_3735'], 'values': ['xyz_1_cast_fp16', 'var_3728_cast_fp16', 'opacity_1_cast_fp16', 'clip_0_cast_fp16', 'rotation_1_cast_fp16'], 'interleave': ['packed_interleave_0']} 
+OUTPUTS: ['packed_cast_fp16']
+
+OP: 3106 
+TYPE: const 
+INPUTS: {} 
+OUTPUTS: ['var_3739_axes_0']
+
+OP: 3107 
+TYPE: expand_dims 
+INPUTS: {'axes': ['var_3739_axes_0'], 'x': ['packed_cast_fp16']} 
+OUTPUTS: ['gaussian_attributes']
+
+========== INSPECTION COMPLETE ==========
+Output saved to: lam_inspection.txt
